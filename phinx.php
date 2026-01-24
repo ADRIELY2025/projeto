@@ -19,12 +19,12 @@ return
             'charset' => 'utf8',
         ],
         'development' => [
-            'adapter' => 'postgresql',
+            'adapter' => 'pgsql',
             'host' => 'localhost',
             'name' => 'development_db',
             'user' => 'senac',
             'pass' => 'senac',
-            'port' => '3306',
+            'port' => '5432',
             'charset' => 'utf8',
         ],
         'testing' => [

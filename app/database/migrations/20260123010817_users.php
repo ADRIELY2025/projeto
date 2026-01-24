@@ -9,17 +9,12 @@ final class Users extends AbstractMigration
     public function change(): void
     {
         // criação de tabela
-        $users = $this->table('usuario');
-        $users->addColumn('nome', 'string', ['limit' => 20])
-              ->addColumn('cpf', 'string', ['limit' => 20])
-              ->addColumn('senha', 'string', ['limit' => 40])
-              ->addColumn('password_salt', 'string', ['limit' => 40])
-              ->addColumn('email', 'string', ['limit' => 100])
-              ->addColumn('primeiro_nome', 'string', ['limit' => 30])
-              ->addColumn('sobre_nome', 'string', ['limit' => 30])
-              ->addColumn('created', 'datetime')
-              ->addColumn('updated', 'datetime', ['null' => true])
-              ->addIndex(['username', 'email'], ['unique' => true])
+        $table = $this->table('users', ['id' => false, 'primary_key' => ['id]]);']]);
+        $table->addColumn('id', 'biginterger', ['identity' => true,'null' => false])
+              ->addColumn('nome', 'text', ['null' => true])
+              ->addColumn('salario', 'decimal', ['null' => true, 'default' => 0, 'precision' => 18, 'scale' => 4])
+              ->addColumn('data_cadastro', 'datetime', ['null' => true, 'default' => 'CURRENT_TIMESTAMP'])
+              ->addColumn('data_atualização', 'datetime', ['null' => true, 'default' => 'CURRENT_TIMESTAMP'])
               ->create();
         }
 }
