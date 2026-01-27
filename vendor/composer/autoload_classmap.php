@@ -967,4 +967,9 @@ return array(
     'Twig\\Util\\DeprecationCollector' => $vendorDir . '/twig/twig/src/Util/DeprecationCollector.php',
     'Twig\\Util\\ReflectionCallable' => $vendorDir . '/twig/twig/src/Util/ReflectionCallable.php',
     'Twig\\Util\\TemplateDirIterator' => $vendorDir . '/twig/twig/src/Util/TemplateDirIterator.php',
+    'app\\controller\\Base' => $baseDir . '/app/controller/Base.php',
+    'app\\controller\\Empresa' => $baseDir . '/app/controller/Empresa.php',
+    'app\\controller\\Fornecedor' => $baseDir . '/app/controller/Fornecedor.php',
+    'app\\controller\\Home' => $baseDir . '/app/controller/Home.php',
+    'app\\controller\\User' => $baseDir . '/app/controller/User.php',
 );
