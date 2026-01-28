@@ -124,7 +124,7 @@ class User extends Base
                 #'ativo' => (isset($form['ativo']) and $form['ativo'] === 'true') ? true : false,
                 #'administrador' => (isset($form['administrador']) and $form['administrador'] === 'true') ? true : false
             ];
-            $IsInsert = InsertQuery::table('usuario')->save($FieldAndValues);
+            $IsInsert = InsertQuery::table('users')->save($FieldAndValues);
             if (!$IsInsert) {
                 $data = [
                     'status' => false,

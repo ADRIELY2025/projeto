@@ -28,7 +28,7 @@ class Connection
             #criação da nova conexão PDO com os pârametro do banco de dados.
             static::$pdo = new PDO(
                 'pgsql:host=localhost;port=5432;dbname=bitlab_db;', # DSN de conexão com o banco de dados PostgreSQL.
-                'bitlab', # Nome de usuario do banco de dados
+                'senac', # Nome de usuario do banco de dados
                 'bitlab', # Senha do banco de dados
                 $options # Opções para conexão PDO.
             );
