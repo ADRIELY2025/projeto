@@ -32,6 +32,9 @@ $app->group('/login', function (RouteCollectorProxy $group) {
     $group->post('/autenticar', Login::class . ':autenticar');
 });
 
+$app->group('/produto', function (RouteCollectorProxy $group) {
+    $group->post('/listproductdata', Product::class . ':listproductdata');
+});
 
 $app->group('/usuario', function (RouteCollectorProxy $group) {
     $group->get('/lista', User::class . ':lista'); #->add(Auth::route());

@@ -189,3 +189,20 @@ document.addEventListener('click', function (e) {
 $('#select-field').select2({
     theme: 'bootstrap-5'
 });
+document.addEventListener('keydownn', (e) => {
+    //fechamos o modal com a tecla F3
+    if (e.key === 'F8') {
+        const myModalEl = document.getElementById('pesquisaProdutoModal');
+        const modal = bootstrap.Modal.getInstance(myModalEl);
+        modal.hide();
+    }
+});
+$("#pesquisa").select2({
+    theme: "bootstrap-5",
+    placeholder: "Selecione um produto",
+    ajax: {
+        url: "/produto/listproductdata",
+        Type: "POST",
+        delay: 250
+    }
+});

@@ -10,6 +10,31 @@
 </head>
 
 <body>
+
+    <!-- Modal -->
+    <div class="modal fade" id="pesquisaProdutoModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Pesquisar Produto</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <table>
+
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">
+                        Cancelar F8
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
     <!-- Sidebar Esquerda -->
     <aside class="sidebar">
         <div class="logo-section">
@@ -71,12 +96,10 @@
                                 <option value="2">Two</option>
                                 <option value="3">Three</option>
                             </select>
-                            <button class="btn btn-outline-secondary" 
-                            type="button"
-                            data-bs-toggle="modal"
-                            data-bs-target="#pesquisaProdutoModal">
-                            <i class="fas fa-search"></i>
-                        </button>
+                            <button class="btn btn-outline-secondary" type="button" data-bs-toggle="modal"
+                                data-bs-target="#pesquisaProdutoModal">
+                                <i class="fas fa-search"></i>
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -168,6 +191,7 @@
             </aside>
         </div>
     </main>
+
     {% include "script.html" %}
     <script defer type="module" src="/js/sale.js"></script>
 </body>
