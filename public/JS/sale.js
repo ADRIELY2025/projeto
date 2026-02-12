@@ -1,5 +1,7 @@
-// Sistema de Vendas - JavaScript
+import { Validate } from "./Validate.js";
+import { Requests } from "./Requests.js";
 
+const insertItemButton = document.getElementById('insertItemButton');
 // Atualizar relógio em tempo real
 function updateClock() {
     const now = new Date();
@@ -29,10 +31,29 @@ function updateClock() {
         dateElement.textContent = `${dayName}, ${day} De ${month} De ${year}`;
     }
 }
-
 // Atualizar a cada segundo
 setInterval(updateClock, 1000);
 updateClock();
+
+async function InsertSale() {
+    const valid = Validate.SetForm('form').Validate();
+    if (!valid) {
+        Swal.fire({
+            icon: 'error',
+            title: 'Erro',
+            text: 'Por favor, preencha os campos corretamente.',
+            time: 2000,
+            progressBar: true,
+        });
+        return;
+    }
+    try {
+        const response = await Requests.SetForm('form').Post('/venda/insert');
+
+    } catch (error) {
+        throw new Error(error);
+    }
+}
 
 // Event Listeners para botões de adicionar
 document.addEventListener('DOMContentLoaded', function () {
@@ -157,28 +178,6 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 });
-
-// Atalhos de teclado
-document.addEventListener('keydown', function (e) {
-    // F2 - Focar no campo de busca
-    if (e.key === 'F2') {
-        e.preventDefault();
-        document.querySelector('.search-input')?.focus();
-    }
-
-    // F9 - Finalizar venda
-    if (e.key === 'F9') {
-        e.preventDefault();
-        document.querySelector('.btn-finalize')?.click();
-    }
-
-    // Esc - Cancelar venda
-    if (e.key === 'Escape') {
-        e.preventDefault();
-        document.querySelector('.btn-cancel')?.click();
-    }
-});
-
 // Feedback visual para cliques
 document.addEventListener('click', function (e) {
     if (e.target.matches('button')) {
@@ -186,23 +185,42 @@ document.addEventListener('click', function (e) {
     }
 });
 
-$('#select-field').select2({
-    theme: 'bootstrap-5'
+insertItemButton.addEventListener('click', async () => {
+    await InsertSale();
 });
-document.addEventListener('keydownn', (e) => {
-    //fechamos o modal com a tecla F3
+
+document.addEventListener('keydown', (e) => {
+    //Bloque a ação de teclas F4, F8 e F9, F12 para evitar ações indesejadas
+    //e.preventDefault();
+    //Abrimos o modal de pesquisa de produto com a tecla F4
+    if (e.key === 'F4') {
+        const myModalEl = document.getElementById('pesquisaProdutoModal');
+        const modal = new bootstrap.Modal(myModalEl);
+        modal.show();
+    }
+    //Fechamos o modal de pesquisa de produto com a tecla F8
     if (e.key === 'F8') {
         const myModalEl = document.getElementById('pesquisaProdutoModal');
-        const modal = bootstrap.Modal.getInstance(myModalEl);
+        const modal = new bootstrap.Modal(myModalEl);
         modal.hide();
     }
-});
-$("#pesquisa").select2({
-    theme: "bootstrap-5",
-    placeholder: "Selecione um produto",
-    ajax: {
-        url: "/produto/listproductdata",
-        Type: "POST",
-        delay: 250
+    //Inserimos o item da venda com a tecla F9
+    if (e.key === 'F9') {
+        alert('olá');
     }
+});
+
+$('#pesquisa').select2({
+    theme: 'bootstrap-5',
+    placeholder: "Selecione um produto",
+    language: "pt-BR",
+    ajax: {
+        url: '/produto/listproductdata',
+        type: 'POST'
+    }
+});
+$('.form-select').on('select2:open', function (e) {
+    let inputElement = document.querySelector('.select2-search__field');
+    inputElement.placeholder = 'Digite para pesquisar...';
+    inputElement.focus();
 });

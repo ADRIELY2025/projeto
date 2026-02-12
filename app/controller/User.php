@@ -43,7 +43,7 @@ class User extends Base
     {
         try {
             $id = $args['id'];
-            $user = SelectQuery::select()->from('usuario')->where('id', '=', $id)->fetch();
+            $user = SelectQuery::select()->from('users')->where('id', '=', $id)->fetch();
             $dadosTemplate = [
                 'acao' => 'e',
                 'id' => $id,
@@ -51,7 +51,7 @@ class User extends Base
                 'user' => $user
             ];
             return $this->getTwig()
-                ->render($response, $this->setView('user'), $dadosTemplate)
+                ->render($response, $this->setView('users'), $dadosTemplate)
                 ->withHeader('Content-Type', 'text/html')
                 ->withStatus(200);
         } catch (\Exception $e) {
@@ -68,11 +68,11 @@ class User extends Base
                 'cpf' => $form['cpf'],
                 'rg' => $form['rg']
             ];
-            $IsSave = InsertQuery::table('usuario')->save($FieldAndValues);
+            $IsSave = InsertQuery::table('users')->save($FieldAndValues);
             if (!$IsSave) {
                 return $this->SendJson($response, ['status' => false, 'msg' => 'Restrição: ' . $IsSave, 'id' => 0], 403);
             }
-            $user = SelectQuery::select('id')->from('usuario')->order('id', 'desc')->fetch();
+            $user = SelectQuery::select('id')->from('users')->order('id', 'desc')->fetch();
             return $this->SendJson($response, ['status' => true, 'msg' => 'Salvo com sucesso', 'id' => $user['id']], 201);
         } catch (\Exception $e) {
             return $this->SendJson($response, ['status' => false, 'msg' => 'Restrição: ' . $e->getMessage(), 'id' => 0], 500);
@@ -101,37 +101,36 @@ class User extends Base
             return $this->SendJson($response, ['status' => false, 'msg' => 'Restrição: ' . $e->getMessage(), 'id' => 0], 500);
         }
     }
-     public function print($request, $response)
+    public function print($request, $response)
     {
         $html = $this->getHtml('reportuser.html');
         return $this->printer($html);
     }
     public function delete($request, $response)
-{
-    try {
-        $id = $_POST['id'];
+    {
+        try {
+            $id = $_POST['id'];
 
-        $IsDelete = DeleteQuery::table('product')
-            ->where('id', '=', $id)
-            ->delete();
+            $IsDelete = DeleteQuery::table('product')
+                ->where('id', '=', $id)
+                ->delete();
 
-        if (!$IsDelete) {
+            if (!$IsDelete) {
+                echo json_encode([
+                    'status' => false,
+                    'msg' => 'Erro ao remover'
+                ]);
+                die;
+            }
+
             echo json_encode([
-                'status' => false,
-                'msg' => 'Erro ao remover'
+                'status' => true,
+                'msg' => 'Produto removido com sucesso!'
             ]);
             die;
+        } catch (\Throwable $th) {
+            echo json_encode(['status' => false, 'msg' => $th->getMessage()]);
+            die;
         }
-
-        echo json_encode([
-            'status' => true,
-            'msg' => 'Produto removido com sucesso!'
-        ]);
-        die;
-
-    } catch (\Throwable $th) {
-        echo json_encode(['status' => false, 'msg' => $th->getMessage()]);
-        die;
     }
-}
 }

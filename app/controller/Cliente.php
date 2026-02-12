@@ -70,7 +70,7 @@ class Cliente extends Base
                 'customer' => $customer
             ];
             return $this->getTwig()
-                ->render($response, $this->setView('cliente'), $dadosTemplate)
+                ->render($response, $this->setView('customer'), $dadosTemplate)
                 ->withHeader('Content-Type', 'text/html')
                 ->withStatus(200);
         } catch (\Exception $e) {

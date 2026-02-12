@@ -53,7 +53,7 @@ $app->group('/cliente', function (RouteCollectorProxy $group) {
     $group->get('/alterar/{id}', Cliente::class . ':alterar'); #->add(Auth::route());
     $group->get('/print', Cliente::class . ':print');
     $group->post('/update', Cliente::class . ':update');
-    $group->post('/listcliente', Cliente::class . ':listcliente');
+    $group->post('/lisatcliente', Cliente::class . ':listacliente');
     $group->post('/insert', Cliente::class . ':insert');
     $group->post('/delete', Cliente::class . ':delete');
 });
