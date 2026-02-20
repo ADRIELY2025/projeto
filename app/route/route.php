@@ -36,6 +36,7 @@ $app->group('/produto', function (RouteCollectorProxy $group) {
     $group->post('/listproductdata', Product::class . ':listproductdata');
 });
 
+
 $app->group('/usuario', function (RouteCollectorProxy $group) {
     $group->get('/lista', User::class . ':lista'); #->add(Auth::route());
     $group->get('/cadastro', User::class . ':cadastro'); #->add(Auth::route());
@@ -94,10 +95,13 @@ $app->group('/pagamento', function (RouteCollectorProxy $group) {
     $group->get('/cadastro', PaymentTerms::class . ':cadastro');
     $group->get('/alterar/{id}', PaymentTerms::class . ':alterar');
     $group->post('/insert', PaymentTerms::class . ':insert');
+    $group->post('/update', PaymentTerms::class . ':update');
     $group->post('/insertinstallment', PaymentTerms::class . ':insertInstallment');
-    $group->post('/loaddatainstallments', PaymentTerms::class . ':loaddataInstallments');
-
+    $group->post('/loaddatainstallments', PaymentTerms::class . ':loaddatainstallments');
+    $group->post('/deleteinstallment', PaymentTerms::class . ':deleteinstallment');
+    $group->post('/listapaymentterms', PaymentTerms::class . ':listapaymentterms');
 });
+
 $app->group('/logout', function (RouteCollectorProxy $group) {
     $group->get('', Login::class . ':logout'); #->add(Auth::route());
 });
